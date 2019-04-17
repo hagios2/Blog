@@ -8,6 +8,12 @@
     <link rel="stylesheet" media="screen" href="/css/bootstrap.min.css">
     <link rel="stylesheet" media="screen" href="css/app.css">
     <script src="js/app.js" charset="utf-8"></script>
+
+    <style>
+        .is-complete{
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 <body>
 

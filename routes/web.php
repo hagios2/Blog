@@ -18,3 +18,13 @@ Route::get('/contact', 'PagesController@contact');
 Route::get('/about', 'PagesController@about');
 
 Route::resource('projects', 'ProjectsController');
+
+Route::post('/projects/{project}/tasks', 'ProjectTasksController@store');
+
+/* Route::patch('/tasks/{task}', 'ProjectTasksController@update'); */
+
+Route::post('/completed-task/{task}', 'CompletedTasksController@store');
+
+Route::delete('/completed-task/{task}', 'CompletedTasksController@destroy');
+
+

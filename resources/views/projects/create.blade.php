@@ -23,24 +23,8 @@
           <button class="btn btn-primary" type="submit">Add Project</button>
         </div>
 
-        @if($errors->any())
-
-            <div class="field">
-
-                <ul class="list-group">
-                    @foreach($errors->all() as $error)
-                    
-                        <li class="list-group-item">
-                            {{$error}}
-                        </li>
-                    
-                    @endforeach
-
-                </ul>
-            </div>
-        
-            @endif
-    
+              @include('errors')
+       
         </form>
 
 @endsection
