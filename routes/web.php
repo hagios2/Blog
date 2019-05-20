@@ -28,3 +28,7 @@ Route::post('/completed-task/{task}', 'CompletedTasksController@store');
 Route::delete('/completed-task/{task}', 'CompletedTasksController@destroy');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
