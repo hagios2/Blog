@@ -22,8 +22,6 @@
         <div class="form-group">
           <button class="btn btn-primary" type="submit">Add Project</button>
         </div>
-
-              @include('errors')
        
         </form>
 

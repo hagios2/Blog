@@ -27,7 +27,7 @@ Route::post('/completed-task/{task}', 'CompletedTasksController@store');
 
 Route::delete('/completed-task/{task}', 'CompletedTasksController@destroy');
 
-
+Route::resource('posts', 'PostController');
 
 Auth::routes();
 

@@ -29,12 +29,18 @@
             <li class="nav-item"><a class="nav-link" href="/about">About us</a></li>
             <li class="nav-item"><a class="nav-link" href="/projects">Projects</a></li>
             <li class="nav-item"><a class="nav-link" href="/contact">Contact us</a></li>
+            <li class="nav-item"><a class="nav-link" href="/posts">Blog</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item"> <a href="/posts/create">Create Post</a>
         </ul>
     </div>
 </nav>
-  
-    @yield('content')
 
+@include('errors')
+    
+@yield('content')
 
 </body>
 </html>

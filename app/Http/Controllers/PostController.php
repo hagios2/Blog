@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Project;
+use App\Post;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $project = Project::all();
+        $posts = Post::orderBY('created_at', 'desc')->paginate(2);
 
-        return view('/projects', compact('project'));
-
-
+        return view('post/index', compact('posts'));
     }
 
     /**
@@ -28,8 +26,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
-        return view('projects/create');
+        return view('post/create');
     }
 
     /**
@@ -40,34 +37,37 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $project = new Project;
-        $project->title = $request('title');
-        $project->description = $request('description');
+        $attributes = request()->validate([
 
-        $project->save();
+            'title' => 'required|min:4',
+            'body' => 'required'
+        ]);
 
-        return redirect('/projects');
+        Post::create($attributes);
+
+        return redirect('/posts')->with('success', 'Post Added Successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(Post $post)
     {
-        //
+      //  $post = Post::findOrFail($id);
+
+        return view('post/show', compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit(Post $post)
     {
         //
     }
@@ -76,10 +76,10 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Project  $project
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, Post $post)
     {
         //
     }
@@ -87,10 +87,10 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy(Post $post)
     {
         //
     }
