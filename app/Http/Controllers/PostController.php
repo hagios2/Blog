@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBY('created_at', 'desc')->paginate(2);
+        $posts = Post::orderBY('created_at', 'desc')->paginate(5);
 
         return view('post/index', compact('posts'));
     }
@@ -69,7 +76,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('/post/edit', compact('post'));
     }
 
     /**
@@ -81,7 +88,16 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->update(
+
+            request()->validate([
+
+                'title' => 'required|min:5',
+                'body' => 'required|min:5'
+            ])
+        );
+
+        return redirect('/posts')->with('success', 'Post Saved');
     }
 
     /**
@@ -92,6 +108,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect('/posts')->with('success', 'Post Deleted');
     }
 }

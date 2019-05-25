@@ -20,7 +20,7 @@
 
         @endforeach
 
-        {{$post->links}}
+        {{$posts->links()}}
 
         
     @else

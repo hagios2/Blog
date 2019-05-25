@@ -11,12 +11,12 @@
         
         <div class="form-group">
             <label for="formGroupTitleInput">Title</label>
-            <input class="form-control" type="text" name="title" required value="{{old('title')}}" placeholder="title">
+            <input class="form-control {{$errors->has('title') ? 'alert alert-danger': ''}}" type="text" name="title" required value="{{old('title')}}" placeholder="title">
         </div>
 
         <div class="form-group>
             <label for="formGroupDescriptionInput">Description</label>
-            <textarea class="form-control" name="body" cols="30" rows="10" required placeholder="Body">{{old('body')}}</textarea>
+            <textarea class="form-control {{$errors->has('body') ? 'alert alert-danger': ''}}" id='article-ckeditor' name="body" cols="30" rows="10" required placeholder="Body">{{old('body')}}</textarea>
         </div>
 
         <div class="form-group">
