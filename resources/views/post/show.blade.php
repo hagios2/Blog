@@ -11,26 +11,28 @@
 
         <h4>{!!$post->body!!}</h4>
 
+        <small>Written on {{$post->created_at}} by {{$post->user->name}}</small>
+
     </div>
 
-    <hr>
-    <small> {{$post->created_at}}</small>
+    @if(!auth()->guest())
 
-    <form method="GET" action="/posts/{{$post->id}}/edit" class="form-group">
-        @csrf
+        <form method="GET" action="/posts/{{$post->id}}/edit" class="form-group">
+            @csrf
 
-        <button class="btn btn-primary" type="submit">Edit Post</button>
-    
-    </form>
-
+            <button class="btn btn-primary" type="submit">Edit Post</button>
+        
+        </form>
 
 
-    <form method="POST" action="/posts/{{$post->id}}" class="form-group">
-        @csrf
-        @method("DELETE")
 
-        <button class="btn btn-primary" type="submit">Delete</button>
-    
-    </form>
+        <form method="POST" action="/posts/{{$post->id}}" class="form-group">
+            @csrf
+            @method("DELETE")
+
+            <button class="btn btn-danger" type="submit">Delete</button>
+        
+        </form>
+    @endif
 
 @endsection

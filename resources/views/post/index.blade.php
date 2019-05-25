@@ -9,13 +9,27 @@
              
         @foreach($posts as $post)
 
-      
             <div class="lead container">
 
-                <h3 class="display-6"><a href="posts/{{$post->id}}"> {{$post->title}} </a> </h3>
+                <div class="row">
 
-                <small class="lead">written on {{$post->created_at}}</small>
-  
+                    <div class="col-md-1 col-sm-1">
+                
+                        <img style="width:100%" src="/storage/images/{{$post->user->name}}/{{$post->image_name}}" alt="{{$post->id}}">
+                
+                    </div>
+            
+            
+                    <div class="col-md-8 col-sm-8">
+                                
+                        <h3 class="display-6"><a href="posts/{{$post->id}}"> {{$post->title}} </a> </h3>
+                
+                        <small class="lead">written on {{$post->created_at}} by {{$post->user->name}}</small>
+                  
+                    </div>
+
+                </div>
+            
             </div>
 
         @endforeach
@@ -29,6 +43,8 @@
   
     @endif
 
-    <a href="posts/create" class="btn btn-primary">Add Post</a>
+    @if(!auth()->guest())
+        <a href="posts/create" class="btn btn-primary">Add Post</a>
+    @endif
         
 @endsection

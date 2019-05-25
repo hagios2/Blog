@@ -4,7 +4,8 @@
 
 @section('content')
 
-    <h1 class="title">Add New Post</h1>
+
+    <h1 class="title">Edit Post</h1>
 
     <form method="POST" action="/posts/{{$post->id}}">
     @csrf

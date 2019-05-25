@@ -1,19 +1,11 @@
-@if($errors->any())
-
-<div class="field">
-
-    <ul class="list-group">
-        @foreach($errors->all() as $error)
-        
-            <li class="alert alert-danger">
-                {{$error}}
-            </li>
-        
-        @endforeach
-
-    </ul>
-</div>
-
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $errors }}</li>
+            @endforeach
+        </ul>
+    </div>
 @endif
 
 
@@ -28,11 +20,11 @@
 @endif
 
 
-@if(session('errors'))
+@if(session('error'))
 
     <div class="alert alert-danger">
       
-        {{session('errors')}}
+        {{session('error')}}
 
     </div>
 

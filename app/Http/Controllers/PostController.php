@@ -10,7 +10,7 @@ class PostController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
 
@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBY('created_at', 'desc')->paginate(5);
+        $posts = Post::orderBy('created_at')->paginate(5);
 
         return view('post/index', compact('posts'));
     }
@@ -47,8 +47,40 @@ class PostController extends Controller
         $attributes = request()->validate([
 
             'title' => 'required|min:4',
-            'body' => 'required'
+            'body' => 'required',
+            'image_name' => 'image|nullable|max:1999'
         ]);
+
+        $attributes['user_id'] = auth()->id();
+
+        //Handle file upload
+
+        if ($request->hasFile('image_name'))
+        {
+            //Get filename with extension
+           $fileNameWithExt = $request->file('image_name')->getClientOriginalName();
+
+            //get only file name without extention
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+            //get only extention
+            $extention = $request->file('image_name')->getClientOriginalExtension();
+
+            //generate name for storage
+            $fileNameToStore = $fileName.'_'.time().'.'.$extention;
+
+            //
+            $path = $request->file('image_name')->storeAs('public/images/'.auth()->user()->name, $fileNameToStore);
+
+            //add filename to attributes
+            $attributes['image_name'] = $fileNameToStore;
+
+        }else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+       //return $attributes;
+
 
         Post::create($attributes);
 
@@ -65,6 +97,8 @@ class PostController extends Controller
     {
       //  $post = Post::findOrFail($id);
 
+        //abort_if($post->user_id !== auth()->id(), 403);
+
         return view('post/show', compact('post'));
     }
 
@@ -76,6 +110,12 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if (auth()->id() !== $post->user_id) {
+
+            
+            return redirect('/posts')->with('error','Unauthorized Page');
+        }
+
         return view('/post/edit', compact('post'));
     }
 
@@ -108,6 +148,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if (auth()->id() !== $post->user_id) {
+            
+            return redirect('/posts')->with('error','Unauthorized Page');
+        }
+
         $post->delete();
 
         return redirect('/posts')->with('success', 'Post Deleted');
