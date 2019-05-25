@@ -14,8 +14,16 @@
                 <div class="row">
 
                     <div class="col-md-3 col-sm-3">
-                
-                        <img style="width:100%" src="/storage/images/{{$post->user->name}}/{{$post->image_name}}" alt="{{$post->id}}">
+
+                        @if ($post->image_name !== 'noimage.jpg')
+                           
+                            <img style="width:100%" src="/storage/images/{{$post->user->name}}/{{$post->image_name}}" alt="{{$post->id}}">
+
+                        @else
+                       
+                            <img style="width:100%" src="/storage/images/noimage.jpg" alt="{{$post->id}}">
+                        
+                         @endif
                 
                     </div>
             

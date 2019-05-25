@@ -157,7 +157,7 @@ class PostController extends Controller
         //return $attributes;
 
         $post->update($attributes);
-
+        
 
         return redirect('/posts')->with('success', 'Post Saved');
     }
