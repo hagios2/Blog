@@ -5,9 +5,15 @@
     
     <a href="/posts" class="btn btn-default">Back</a>
 
-    <h1>{{$post->title}}</h1>
+  
 
-    <div class="container">
+    <div class="jumbotron">
+
+        <h1>{{$post->title}}</h1>
+
+        <div style="width:70%">
+            <img style="width:100%" src="/storage/images/{{$post->user->name}}/{{$post->image_name}}" alt="{{$post->id}}">
+        </div>
 
         <h4>{!!$post->body!!}</h4>
 
@@ -23,7 +29,6 @@
             <button class="btn btn-primary" type="submit">Edit Post</button>
         
         </form>
-
 
 
         <form method="POST" action="/posts/{{$post->id}}" class="form-group">

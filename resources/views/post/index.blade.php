@@ -13,7 +13,7 @@
 
                 <div class="row">
 
-                    <div class="col-md-1 col-sm-1">
+                    <div class="col-md-3 col-sm-3">
                 
                         <img style="width:100%" src="/storage/images/{{$post->user->name}}/{{$post->image_name}}" alt="{{$post->id}}">
                 

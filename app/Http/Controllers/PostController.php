@@ -128,14 +128,36 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $post->update(
+        $attributes = request()->validate([
 
-            request()->validate([
+            'title' => 'required|min:5',
+            'body' => 'required|min:5'
+        ]);
 
-                'title' => 'required|min:5',
-                'body' => 'required|min:5'
-            ])
-        );
+        if ($request->hasFile('image_name')) {
+            
+            $fileNameWithExt = $request->file('image_name')->getClientOriginalName();
+
+            //get only file name without extention
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+            //get only extention
+            $extention = $request->file('image_name')->getClientOriginalExtension();
+           
+            //generate name for storage
+            $fileNameToStore = $fileName.'_'.time().'.'.$extention;
+
+            //
+            $path = $request->file('image_name')->storeAs('public/images/'.auth()->user()->name, $fileNameToStore);
+
+            //add filename to attributes
+            $attributes['image_name'] = $fileNameToStore;
+        }
+
+        //return $attributes;
+
+        $post->update($attributes);
+
 
         return redirect('/posts')->with('success', 'Post Saved');
     }
